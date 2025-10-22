@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: gentahub-backend
+    runtime: python
+    rootDir: gentahub-backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
+    envVars:
+      - key: FLASK_ENV
+        value: production
+      - key: FLASK_DEBUG
+        value: "0"
+      - key: OPENAI_API_KEY
+        scope: all
+      - key: STRIPE_SECRET_KEY
+        scope: all
+      - key: STRIPE_PUBLISHABLE_KEY
+        scope: all
+      - key: DATABASE_URL
+        scope: all
+      - key: REDIS_URL
+        scope: all
+      - key: JWT_SECRET_KEY
+        scope: all
+    healthCheckPath: /api/system/info
+    
+  - type: web
+    name: gentahub-frontend
+    runtime: node
+    rootDir: gentahub
+    buildCommand: npm install && npm run build
+    startCommand: npm run preview
+    envVars:
+      - key: VITE_API_URL
+        value: https://gentahub-backend.onrender.com
+
