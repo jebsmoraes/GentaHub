@@ -2,9 +2,9 @@ services:
   - type: web
     name: gentahub-backend
     runtime: python
-    rootDir: gentahub-backend
-    buildCommand: pip install -r requirements.txt
-    startCommand: python app.py
+    dir: gentahub-backend
+    buildCommand: cd gentahub-backend && pip install -r requirements.txt
+    startCommand: cd gentahub-backend && python app.py
     envVars:
       - key: FLASK_ENV
         value: production
@@ -33,10 +33,11 @@ services:
   - type: web
     name: gentahub-frontend
     runtime: node
-    rootDir: gentahub
-    buildCommand: npm install && npm run build
-    startCommand: npm run preview
+    dir: gentahub
+    buildCommand: cd gentahub && npm install && npm run build
+    startCommand: cd gentahub && npm run preview
     envVars:
       - key: VITE_API_URL
         value: https://gentahub-backend.onrender.com
+
 
