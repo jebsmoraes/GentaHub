@@ -11,19 +11,25 @@ services:
       - key: FLASK_DEBUG
         value: "0"
       - key: OPENAI_API_KEY
+        value: "YOUR_OPENAI_API_KEY"
         scope: all
       - key: STRIPE_SECRET_KEY
+        value: "YOUR_STRIPE_SECRET_KEY"
         scope: all
       - key: STRIPE_PUBLISHABLE_KEY
+        value: "YOUR_STRIPE_PUBLISHABLE_KEY"
         scope: all
       - key: DATABASE_URL
+        value: "postgresql://user:password@host:port/database"
         scope: all
       - key: REDIS_URL
+        value: "redis://localhost:6379"
         scope: all
       - key: JWT_SECRET_KEY
+        value: "YOUR_JWT_SECRET_KEY"
         scope: all
     healthCheckPath: /api/system/info
-    
+
   - type: web
     name: gentahub-frontend
     runtime: node
