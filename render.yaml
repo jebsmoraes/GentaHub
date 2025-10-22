@@ -2,40 +2,40 @@ services:
   - type: web
     name: gentahub-backend
     runtime: python
-    dir: gentahub-backend
-    buildCommand: cd gentahub-backend && pip install -r requirements.txt
-    startCommand: cd gentahub-backend && python app.py
+    rootDir: gentahub-backend
+    buildCommand: pip install -r requirements.txt
+    startCommand: python app.py
     envVars:
       - key: FLASK_ENV
         value: production
       - key: FLASK_DEBUG
         value: "0"
       - key: OPENAI_API_KEY
-        value: "YOUR_OPENAI_API_KEY"
+        value: sk-test-placeholder
         scope: all
       - key: STRIPE_SECRET_KEY
-        value: "YOUR_STRIPE_SECRET_KEY"
+        value: sk_test_placeholder
         scope: all
       - key: STRIPE_PUBLISHABLE_KEY
-        value: "YOUR_STRIPE_PUBLISHABLE_KEY"
+        value: pk_test_placeholder
         scope: all
       - key: DATABASE_URL
-        value: "postgresql://user:password@host:port/database"
+        value: sqlite:///gentahub.db
         scope: all
       - key: REDIS_URL
-        value: "redis://localhost:6379"
+        value: redis://localhost:6379
         scope: all
       - key: JWT_SECRET_KEY
-        value: "YOUR_JWT_SECRET_KEY"
+        value: your-secret-key-change-in-production
         scope: all
     healthCheckPath: /api/system/info
 
   - type: web
     name: gentahub-frontend
     runtime: node
-    dir: gentahub
-    buildCommand: cd gentahub && npm install && npm run build
-    startCommand: cd gentahub && npm run preview
+    rootDir: gentahub
+    buildCommand: npm install && npm run build
+    startCommand: npm run preview
     envVars:
       - key: VITE_API_URL
         value: https://gentahub-backend.onrender.com
